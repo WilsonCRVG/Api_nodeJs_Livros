@@ -28,13 +28,13 @@ class livroController {
       }
       
 
-    static cadastrarLivros = (req,res) =>{
+    static cadastrarLivros = async (req,res) =>{
         try {
         
             let livro = new livros(req.body);
-            livro.save()
+           await livro.save()
             res.status(201).json(livro);
-        
+            
         }catch(err){
             res.status(500).json('Erro ao Cadastrar' + err)
         } 

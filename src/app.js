@@ -28,7 +28,7 @@ app.delete('/livros/:id',(req,res)=>{
     livros.splice(index,1);
     res.send('Livro ${id} removido com sucesso')
 })
-
+//read
 function buscarLivro(id){
     return livros.findIndex(livro => livro.id == id)
 }
