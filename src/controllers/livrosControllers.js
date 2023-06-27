@@ -4,7 +4,8 @@ class livroController {
   //LISTAR
     static listarLivros = async (req,res) => {
         try {
-            let livrosResultado = await livros.find();
+            let livrosResultado = await livros.find()
+            .populate('autor');
             res.status(200).json(livrosResultado)
         } catch (err) {
             res.status(500).json(err);
@@ -16,7 +17,7 @@ class livroController {
         try {
           const id = req.params.id;
       
-          const livro = await livros.findById(id);
+          const livro = await livros.findById(id).populate('autor','nome');
       
           if (!livro) {
             res.status(404).send({ message: 'Id do livro não localizado.' });
@@ -27,9 +28,7 @@ class livroController {
           res.status(400).send({ message: `${err.message} - Id do livro não localizado.` });
         }
       }
-      
-    
-    
+
     //CADASTRAR
     static cadastrarLivros = async (req,res) =>{
         try {
@@ -72,7 +71,20 @@ class livroController {
         res.status(400).send({ message: `${err.message} - Erro ao excluir o livro.` });
       }
     }
-      
+
+    //Buscar Por Editora
+    static listarLivrosPorEditora = async (req, res) => {
+      try {
+        const editora = req.query.editora;
+        const livrosEncontrados = await livros.find({ editora: editora });
+    
+        res.status(200).send(livrosEncontrados);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Ocorreu um erro ao buscar os livros por editora.');
+      }
+    };
+
 }
 
 
