@@ -31,8 +31,7 @@ class livroController {
 
     //CADASTRAR
     static cadastrarLivros = async (req,res) =>{
-        try {
-        
+        try { 
             let livro = new livros(req.body);
             await livro.save()
             res.status(201).json(livro);
@@ -83,7 +82,7 @@ class livroController {
         console.error(error);
         res.status(500).send('Ocorreu um erro ao buscar os livros por editora.');
       }
-    };
+    }
 
 }
 
